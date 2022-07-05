@@ -1869,11 +1869,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pathien1\\source\\repos\\DeliveryUnitManager\\DeliveryUnitManager.Reponsitory\\DeliveryUnitManager.Reponsitory.csproj",
+      "projectUniqueName": "D:\\Project\\DeliveryUnitManagement\\DeliveryUnitManager\\DeliveryUnitManager.Reponsitory\\DeliveryUnitManager.Reponsitory.csproj",
       "projectName": "DeliveryUnitManager.Reponsitory",
-      "projectPath": "C:\\Users\\pathien1\\source\\repos\\DeliveryUnitManager\\DeliveryUnitManager.Reponsitory\\DeliveryUnitManager.Reponsitory.csproj",
+      "projectPath": "D:\\Project\\DeliveryUnitManagement\\DeliveryUnitManager\\DeliveryUnitManager.Reponsitory\\DeliveryUnitManager.Reponsitory.csproj",
       "packagesPath": "C:\\Users\\pathien1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pathien1\\source\\repos\\DeliveryUnitManager\\DeliveryUnitManager.Reponsitory\\obj\\",
+      "outputPath": "D:\\Project\\DeliveryUnitManagement\\DeliveryUnitManager\\DeliveryUnitManager.Reponsitory\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pathien1\\AppData\\Roaming\\NuGet\\NuGet.Config",
