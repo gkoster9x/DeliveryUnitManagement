@@ -1,0 +1,14 @@
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.csproj.AssemblyReference.cache
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.AssemblyInfoInputs.cache
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.AssemblyInfo.cs
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.csproj.CoreCompileInputs.cache
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\bin\Debug\net6.0\DeliveryUnitManager.Reponsitory.deps.json
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\bin\Debug\net6.0\DeliveryUnitManager.Reponsitory.runtimeconfig.json
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\bin\Debug\net6.0\DeliveryUnitManager.Reponsitory.dll
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\bin\Debug\net6.0\DeliveryUnitManager.Reponsitory.pdb
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.dll
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\refint\DeliveryUnitManager.Reponsitory.dll
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.pdb
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\DeliveryUnitManager.Reponsitory.genruntimeconfig.cache
+C:\Users\pathien1\source\repos\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Debug\net6.0\ref\DeliveryUnitManager.Reponsitory.dll
