@@ -18,7 +18,7 @@ namespace DeliveryUnitManager.Repository.Models
         {
 
         }
-        const string connectionString = @"Server=(local);Database=DeliveryUnitManager;Trusted_Connection=True;MultipleActiveResultSets=true";
+        const string connectionString = @"Server=192.168.86.142;Database=DeliveryUnitManager;User Id=webapp;Password=123;";
         protected override void OnConfiguring(DbContextOptionsBuilder option)
         {
             option.UseSqlServer(connectionString);
