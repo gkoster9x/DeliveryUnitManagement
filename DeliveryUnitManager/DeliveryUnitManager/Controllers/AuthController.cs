@@ -1,4 +1,5 @@
-﻿using DeliveryUnitManager.Repository.Models;
+﻿using DeliveryUnitManager.Models;
+using DeliveryUnitManager.Repository.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +18,7 @@ namespace DeliveryUnitManager.Controllers
         {
             _context = context;
         }
-
+        #region test
         [HttpPost("token")]
         public async Task<ActionResult> GetToken()
         {
@@ -43,11 +44,18 @@ namespace DeliveryUnitManager.Controllers
         }
 
         [HttpPost("bodyPara")]
-        public ActionResult GetBody([FromBody] string content)
+        public ActionResult GetBody([FromHeader] string content)
         {
-            return Ok(content);
+
+            return Ok(new TestModel()
+            {
+                Name=content,
+                Number = content.Length,
+                Date = DateTime.Now
+            });
         }
 
+        #endregion
         [HttpPost("request")]
         public async Task<ActionResult> GetRequest(Models.UserLogin.User user)
         {
@@ -108,16 +116,15 @@ namespace DeliveryUnitManager.Controllers
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Issuer);
-
-                var user = _context.Users.Find(userId);
+              
+                return await Task.Run(() => Ok(jwtToken));
             }
             catch
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
+                return await Task.Run(() => BadRequest());
             }
-            return await Task.Run(() => Ok("Token is success"));
         }
 
     }

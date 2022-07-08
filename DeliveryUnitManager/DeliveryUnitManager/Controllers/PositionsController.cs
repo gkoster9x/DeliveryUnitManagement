@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using DeliveryUnitManager.Reponsitory.Models.Users;
+using DeliveryUnitManager.Repository.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DeliveryUnitManager.Reponsitory.Models.Users;
-using DeliveryUnitManager.Repository.Models;
 
 namespace DeliveryUnitManager.Controllers
 {
