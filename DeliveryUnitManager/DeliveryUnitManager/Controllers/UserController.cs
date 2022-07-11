@@ -8,7 +8,6 @@ namespace DeliveryUnitManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly Repository.Models.DeliveryUnitDataContext _context;
@@ -39,7 +38,6 @@ namespace DeliveryUnitManager.Controllers
 
 
         // GET: api/Users/5
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<userApi>> GetUsers(long id)
         {
