@@ -1,0 +1,9 @@
+
+*.vsidx
+*.sentinel
+*.pdb
+*.cache
+*.pdb
+*.cache
+bin
+.vs
