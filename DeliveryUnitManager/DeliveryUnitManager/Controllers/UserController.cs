@@ -1,5 +1,4 @@
 ﻿using DeliveryUnitManager.Reponsitory.Models.Users;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using userApi = DeliveryUnitManager.Reponsitory.Models.ApiModels.UserAPI;
@@ -20,7 +19,7 @@ namespace DeliveryUnitManager.Controllers
 
         //GET: api/Users
         [HttpGet]
-        
+
         public async Task<ActionResult<IEnumerable<userApi>>> GetUsers()
         {
             if (_context.Users == null)
@@ -89,13 +88,28 @@ namespace DeliveryUnitManager.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Users>> PostUsers(Users users)
+        public async Task<ActionResult<Users>> PostUsers(userApi users)
         {
             if (_context.Users == null)
             {
                 return Problem("Entity set 'DeliveryUnitDataContext.Users'  is null.");
             }
-            _context.Users.Add(users);
+            var user = new Users()
+            {
+                Username = users.Username,
+                Password = users.Password,
+                Fullname = users.FullName,
+                Email = users.Email,
+                PhoneNumber = users.PhoneNumber,
+                Address = users.Address,
+                Gender =   users.Gender,
+                PositionId = users.PositionID,
+                DoB = users.DoB,
+                IsActive= true,
+                Created= DateTime.Now,
+                CreateBy="testApi"
+            };
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUsers", new { id = users.Id }, users);

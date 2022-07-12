@@ -1,0 +1,12 @@
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\bin\Release\net6.0\DeliveryUnitManager.Reponsitory.deps.json
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\bin\Release\net6.0\DeliveryUnitManager.Reponsitory.dll
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\bin\Release\net6.0\DeliveryUnitManager.Reponsitory.pdb
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\DeliveryUnitManager.Reponsitory.csproj.AssemblyReference.cache
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\DeliveryUnitManager.Reponsitory.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\DeliveryUnitManager.Reponsitory.AssemblyInfoInputs.cache
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\DeliveryUnitManager.Reponsitory.AssemblyInfo.cs
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\DeliveryUnitManager.Reponsitory.csproj.CoreCompileInputs.cache
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\DeliveryUnitManager.Reponsitory.dll
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\refint\DeliveryUnitManager.Reponsitory.dll
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\DeliveryUnitManager.Reponsitory.pdb
+D:\Project\DeliveryUnitManagement\DeliveryUnitManager\DeliveryUnitManager.Reponsitory\obj\Release\net6.0\ref\DeliveryUnitManager.Reponsitory.dll

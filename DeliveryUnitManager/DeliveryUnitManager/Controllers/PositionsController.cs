@@ -2,6 +2,7 @@
 using DeliveryUnitManager.Repository.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using positionApi = DeliveryUnitManager.Reponsitory.Models.ApiModels.PositionApi;
 
 namespace DeliveryUnitManager.Controllers
 {
@@ -18,19 +19,25 @@ namespace DeliveryUnitManager.Controllers
 
         //GET: api/Positions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Positions>>> GetPositions()
+        public async Task<ActionResult<IEnumerable<positionApi>>> GetPositions()
         {
             if (_context.Positions == null)
             {
                 return NotFound();
             }
-            return await _context.Positions.ToListAsync();
+            var positions = await _context.Positions.ToListAsync();
+            var listPositionApi = new List<positionApi>();
+            foreach (var position in positions)
+            {
+                listPositionApi.Add(new positionApi(position));
+            }
+            return listPositionApi;
         }
 
 
         // GET: api/Positions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Positions>> GetPositions(long id)
+        public async Task<ActionResult<positionApi>> GetPositions(long id)
         {
             if (_context.Positions == null)
             {
@@ -43,18 +50,24 @@ namespace DeliveryUnitManager.Controllers
                 return NotFound();
             }
 
-            return positions;
+            return new positionApi(positions);
         }
 
         // PUT: api/Positions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPositions(long id, Positions positions)
+        public async Task<IActionResult> PutPositions(long id, positionApi positionApi)
         {
-            if (id != positions.ID)
+            if (id != positionApi.ID)
             {
                 return BadRequest();
             }
+            var positions = await _context.Positions.FindAsync(id);
+            positions.Code = positionApi.Code;
+            positions.Name = positionApi.Name;
+            positions.Description = positionApi.Description;
+            positions.UpdateBy="testApi";
+            positions.Updated = DateTime.Now;
 
             _context.Entry(positions).State = EntityState.Modified;
 
@@ -80,13 +93,22 @@ namespace DeliveryUnitManager.Controllers
         // POST: api/Positions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Positions>> PostPositions(Positions positions)
+        public async Task<ActionResult<Positions>> PostPositions(positionApi positions)
         {
             if (_context.Positions == null)
             {
                 return Problem("Entity set 'DeliveryUnitDataContext.Positions'  is null.");
             }
-            _context.Positions.Add(positions);
+            _context.Positions.Add(new Positions()
+            {
+                Name = positions.Name,
+                Description = positions.Description,
+                Code= positions.Code,
+                Created= DateTime.Now,
+                CreateBy="testApi",
+                IsActive=true,
+
+            });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPositions", new { id = positions.ID }, positions);
