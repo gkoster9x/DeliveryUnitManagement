@@ -1,8 +1,12 @@
-﻿using DeliveryUnitManager.Models;
+﻿using DeliveryUnitManager.Constant;
+using DeliveryUnitManager.Models;
+using DeliveryUnitManager.Models.UserLogin;
+using DeliveryUnitManager.Reponsitory.Models.Users;
 using DeliveryUnitManager.Repository.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace DeliveryUnitManager.Controllers
@@ -56,40 +60,65 @@ namespace DeliveryUnitManager.Controllers
         }
 
         #endregion
-        [HttpPost("request")]
-        public async Task<ActionResult> GetRequest(Models.UserLogin.User user)
+        [HttpPost]
+        public TokenModel GetRequest(User user)
         {
-            if (!string.IsNullOrEmpty(user.UserName) && !string.IsNullOrEmpty(user.Password))
+            try
             {
-                var getUser = _context.Users.SingleOrDefault(x => x.Username == user.UserName && x.Password == user.Password);
-                if (user == null)
-                    return await Task.Run(() => BadRequest("No user registered!"));
+                if (!string.IsNullOrEmpty(user.UserName) && !string.IsNullOrEmpty(user.Password))
+                {
+                    var getUser = _context.Users.SingleOrDefault(x => x.Username == user.UserName && x.Password == user.Password);
+                    if (user == null)
+                        return new TokenModel()
+                        {
+                            result=false,
+                            Message ="No user registered!",
+                        };
+                    else
+                    {
+                        // symmetric security key
+                        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConstant.jwtKey));
+
+                        // signing credentials
+                        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
+                        IEnumerable<Claim> claims = new Claim[] {
+                    new Claim("Id", getUser.Id.ToString()),
+                    new Claim("username", getUser.Username),
+                    new Claim("Fullname", getUser.Fullname),
+             
+
+                };
+                        // create token
+                        var token = new JwtSecurityToken(
+                            issuer: JwtConstant.jwtIssuer,
+                            audience: JwtConstant.jwtAudience,
+                            expires: DateTime.Now.AddHours(1),
+                            signingCredentials: signingCredentials,
+                            claims: claims
+
+                        );
+
+                        // return token
+                        return new TokenModel()
+                        {
+                            result = true,
+                            Message="",
+                            Token=new JwtSecurityTokenHandler().WriteToken(token)
+                        };
+                    }
+                }
                 else
                 {
-                    // security key
-                    string securityKey = "this_is_project_security_key_for_login_but_i_dont_think_anymore";
-
-                    // symmetric security key
-                    var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
-
-                    // signing credentials
-                    var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
-
-                    // create token
-                    var token = new JwtSecurityToken(
-                        issuer: user.UserName,
-                        audience: "login successfully",
-                        expires: DateTime.Now.AddHours(1),
-                        signingCredentials: signingCredentials
-                    );
-
-                    // return token
-                    return await Task.Run(() => Ok(new JwtSecurityTokenHandler().WriteToken(token)));
+                    return new TokenModel()
+                    {
+                        result=false,
+                        Message = "username or password is null"
+                    };
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return await Task.Run(() => BadRequest("username or password is null"));
+                return new TokenModel() { result=false, Message = ex.Message };
             }
         }
         [HttpPost("response")]
@@ -102,21 +131,28 @@ namespace DeliveryUnitManager.Controllers
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                // security key
-                string securityKey = "this_is_project_security_key_for_login_but_i_dont_think_anymore";
-                var key = Encoding.ASCII.GetBytes(securityKey);
+
+                var key = Encoding.ASCII.GetBytes(JwtConstant.jwtKey);
+                // symmetric security key
+                var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConstant.jwtKey));
+
+                // signing credentials
+                var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidIssuer = JwtConstant.jwtIssuer,
+                    ValidAudience = JwtConstant.jwtAudience,
+                    IssuerSigningKey = symmetricSecurityKey,
                     // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-              
+
                 return await Task.Run(() => Ok(jwtToken));
             }
             catch
@@ -127,5 +163,74 @@ namespace DeliveryUnitManager.Controllers
             }
         }
 
+
+        [HttpPost("Register")]
+        public async Task<ActionResult> Register(RegisterUser user)
+        {
+            try
+            {
+
+                if (_context.Users == null)
+                {
+                    return BadRequest();
+                }
+                if (_context.Users.Where(u => u.Username == user.Username).Any())
+                {
+                    var result = new TokenModel()
+                    {
+                        result = false,
+                        Message ="username is exits"
+                    };
+                    return Ok(result);
+                }
+                if (_context.Users.Where(u => u.Email == user.Email).Any())
+                    return Ok(new TokenModel()
+                    {
+                        result = false,
+                        Message ="Email is exits"
+                    });
+                var newUser = new Users()
+                {
+                    Username = user.Username,
+                    Password = user.Password,
+                    Fullname = user.FullName,
+                    UserId = DateTime.Now.Ticks,
+                    Code = user.Username.ToUpper(),
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address,
+                    Gender =   user.Gender,
+                    PositionId = user.PositionID==0 ? 12 : user.PositionID,
+                    DoB = user.DoB,
+                    IsActive= true,
+                    Created= DateTime.Now,
+                    CreateBy="testApi"
+                };
+                _context.Users.Add(newUser);
+                await _context.SaveChangesAsync();
+
+                return Ok(new TokenModel()
+                {
+                    result=true,
+                    Message="Register successfully"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpPost("Login")]
+        public async Task<ActionResult> Login(User user)
+        {
+            var TokenModel = GetRequest(user);
+            if (TokenModel.result)
+                TokenModel.Message = "Login successfully";
+            return await Task.Run(() => Ok(TokenModel));
+
+
+        }
     }
 }
