@@ -46,40 +46,30 @@ namespace DeliveryUnitManager.Controllers
         {
             if (_context.ProjectDevelops == null)
             {
-                return NotFound();
+                return Ok(new TokenModel(false,"No data in storage") );
             }
             var projectDevelop = await _context.ProjectDevelops.FindAsync(id);
 
             if (projectDevelop == null)
             {
-                return NotFound();
+                return Ok(new TokenModel(false,"Data not found"));
             }
-
-
             return new ProjectApi(projectDevelop);
         }
 
         // PUT: api/ProjectDevelops/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut()]
+        [HttpPut]
         public async Task<TokenModel> PutProjectDevelop(BankQuestionModel project)
         {
             if (project.Id == null || project.Id == 0)
             {
-                return new TokenModel()
-                {
-                    result=false,
-                    Message="Project ID  is null"
-                };
+                return new TokenModel(false, "Project ID  is null");
             }
             var projectDevelop = await _context.ProjectDevelops.FindAsync(project.Id);
             if (projectDevelop == null)
             {
-                return new TokenModel()
-                {
-                    result = false,
-                    Message="Project not found"
-                };
+                return new TokenModel(false, "Project not found");
             }
             projectDevelop.Name = project.Name;
             projectDevelop.Code = project.Code;
@@ -95,18 +85,10 @@ namespace DeliveryUnitManager.Controllers
             }
             catch (Exception ex)
             {
-                return new TokenModel()
-                {
-                    result = false,
-                    Message=ex.Message
-                };
+                return new TokenModel(false,ex.Message);
             }
 
-            return new TokenModel()
-            {
-                result = true,
-                Message="Update succesfully"
-            };
+            return new TokenModel(true,"Update succesfully");
         }
 
         // POST: api/ProjectDevelops
@@ -116,11 +98,7 @@ namespace DeliveryUnitManager.Controllers
         {
             if (_context.ProjectDevelops == null)
             {
-                return new TokenModel()
-                {
-                    result=false,
-                    Message ="Entity set 'DeliveryUnitDataContext.ProjectDevelops'  is null."
-                };
+                return new TokenModel(false,"Entity set 'DeliveryUnitDataContext.ProjectDevelops'  is null.");
             }
             var projectDevelop = new ProjectDevelop()
             {
@@ -135,31 +113,27 @@ namespace DeliveryUnitManager.Controllers
             _context.ProjectDevelops.Add(projectDevelop);
             await _context.SaveChangesAsync();
 
-            return new TokenModel()
-            {
-                result = true,
-                Message="Create project successfully"
-            };
+            return new TokenModel(true, "Create project successfully");         
         }
 
         // DELETE: api/ProjectDevelops/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProjectDevelop(long id)
+        public async Task<TokenModel> DeleteProjectDevelop(long id)
         {
             if (_context.ProjectDevelops == null)
             {
-                return NotFound();
+                return new TokenModel(false,"No data in storage");
             }
             var projectDevelop = await _context.ProjectDevelops.FindAsync(id);
             if (projectDevelop == null)
             {
-                return NotFound();
+                return new TokenModel(false,"Data not found");
             }
 
             _context.ProjectDevelops.Remove(projectDevelop);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return new TokenModel(true, "Data deleted successfully");
         }
 
         private bool ProjectDevelopExists(long id)
