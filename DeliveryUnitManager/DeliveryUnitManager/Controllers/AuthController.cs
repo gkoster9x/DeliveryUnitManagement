@@ -68,7 +68,7 @@ namespace DeliveryUnitManager.Controllers
                 if (!string.IsNullOrEmpty(user.UserName) && !string.IsNullOrEmpty(user.Password))
                 {
                     var getUser = _context.Users.SingleOrDefault(x => x.Username == user.UserName && x.Password == user.Password);
-                    if (user == null)
+                    if (getUser == null)
                         return new TokenModel()
                         {
                             result=false,

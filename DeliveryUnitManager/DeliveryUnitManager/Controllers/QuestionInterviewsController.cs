@@ -66,6 +66,8 @@ namespace DeliveryUnitManager.Controllers
             questionInterview.Question = question.Question;
             questionInterview.Type = question.Type;
             questionInterview.PlatformType = question.PlatformType;
+            questionInterview.Level = question.Level;
+            questionInterview.Projects = question.Projects;
             questionInterview.Updated = DateTime.Now;
             questionInterview.UpdateBy="testApi";
 
@@ -104,6 +106,8 @@ namespace DeliveryUnitManager.Controllers
                 Question = question.Question,
                 PlatformType = question.PlatformType,
                 Type= question.Type,
+                Level = question.Level,
+                Projects = question.Projects,
                 IsActive=true,
                 Created = DateTime.Now,
                 CreateBy="testApi"
