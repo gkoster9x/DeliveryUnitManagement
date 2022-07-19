@@ -1,4 +1,5 @@
-﻿using DeliveryUnitManager.Constant;
+﻿using DeliveryUnitManager.Attributes;
+using DeliveryUnitManager.Constant;
 using DeliveryUnitManager.Models;
 using DeliveryUnitManager.Models.UserLogin;
 using DeliveryUnitManager.Reponsitory.Models.Users;
@@ -24,6 +25,7 @@ namespace DeliveryUnitManager.Controllers
         }
         #region test
         [HttpPost("token")]
+        [CustomAuthorize(Role ="admins")]
         public async Task<ActionResult> GetToken()
         {
             // security key

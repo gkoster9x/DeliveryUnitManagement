@@ -22,7 +22,7 @@ namespace DeliveryUnitManager.Reponsitory.Services.Services
                 _context.Users.Remove(user);
         }
 
-        public Users Get(int id)
+        public Users Get(long id)
         {
             var user = _context.Users.Find(id);
             if (user == null) return new Users();

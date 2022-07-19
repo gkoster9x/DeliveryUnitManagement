@@ -7,6 +7,7 @@
 *.cache
 bin
 .vs
+.vs/
 DeliveryUnitManager/.vs/DeliveryUnitManager/v17/.suo
 DeliveryUnitManager/DeliveryUnitManager.Reponsitory/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
 DeliveryUnitManager/DeliveryUnitManager.Reponsitory/obj/Debug/net6.0/DeliveryUnitManager.Reponsitory.AssemblyInfo.cs

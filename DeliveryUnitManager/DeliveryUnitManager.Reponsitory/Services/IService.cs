@@ -8,7 +8,7 @@ namespace DeliveryUnitManager.Reponsitory.Services
 {
     public interface IService<T>
     {
-        public T Get(int id);
+        public T Get(long id);
         public IEnumerable<T> GetAll();
         public int SaveChange();
         public void AddNew(T entity);

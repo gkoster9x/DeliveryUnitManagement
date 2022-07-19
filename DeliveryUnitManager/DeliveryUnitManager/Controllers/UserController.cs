@@ -1,4 +1,5 @@
-﻿using DeliveryUnitManager.Reponsitory.Models.Users;
+﻿using DeliveryUnitManager.Attributes;
+using DeliveryUnitManager.Reponsitory.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using userApi = DeliveryUnitManager.Reponsitory.Models.ApiModels.UserAPI;
@@ -19,7 +20,7 @@ namespace DeliveryUnitManager.Controllers
 
         //GET: api/Users
         [HttpGet]
-
+        [CustomAuthorize(Role = "test")]
         public async Task<ActionResult<IEnumerable<userApi>>> GetUsers()
         {
             if (_context.Users == null)
