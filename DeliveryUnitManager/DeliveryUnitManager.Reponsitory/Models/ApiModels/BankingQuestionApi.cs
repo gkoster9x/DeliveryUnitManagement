@@ -13,6 +13,8 @@ namespace DeliveryUnitManager.Reponsitory.Models.ApiModels
         public string Question { get; set; }
         public string Type { get; set; }
         public string PlatformType { get; set; }
+        public string Level { get; set; }
+        public string Projects { get; set; }
 
         public BankingQuestionApi(QuestionInterviews question)
         {
@@ -20,6 +22,8 @@ namespace DeliveryUnitManager.Reponsitory.Models.ApiModels
             Question = question.Question;
             Type = question.Type;
             PlatformType    = question.PlatformType;
+            Level = question.Level;
+            Projects = question.Projects;
         }
       
     }

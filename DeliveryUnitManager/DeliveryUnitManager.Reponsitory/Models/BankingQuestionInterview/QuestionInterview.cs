@@ -13,8 +13,10 @@ namespace DeliveryUnitManager.Reponsitory.Models.BankingQuestionInterview
         public long ID { get; set; }
         public string? Question { get; set; }
         public string? Type { get; set; }
-        public string? PlatformType { get; set; }
+        public string? PlatformType { get; set; }// Web, Mobile, Desktop, DB, 
 
+        public string Level { get; set; }
+        public string Projects { get; set; }
 
         public virtual ICollection<QuestionInterviews> Interviews { get; set; }
     }

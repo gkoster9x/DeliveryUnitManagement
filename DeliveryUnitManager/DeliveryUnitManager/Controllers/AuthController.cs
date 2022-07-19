@@ -70,12 +70,8 @@ namespace DeliveryUnitManager.Controllers
                 if (!string.IsNullOrEmpty(user.UserName) && !string.IsNullOrEmpty(user.Password))
                 {
                     var getUser = _context.Users.SingleOrDefault(x => x.Username == user.UserName && x.Password == user.Password);
-                    if (user == null)
-                        return new TokenModel()
-                        {
-                            result=false,
-                            Message ="No user registered!",
-                        };
+                    if (getUser == null)
+                        return new TokenModel(false, "No user registered!");
                     else
                     {
                         // symmetric security key
@@ -87,7 +83,7 @@ namespace DeliveryUnitManager.Controllers
                     new Claim("Id", getUser.Id.ToString()),
                     new Claim("username", getUser.Username),
                     new Claim("Fullname", getUser.Fullname),
-             
+
 
                 };
                         // create token
@@ -101,26 +97,18 @@ namespace DeliveryUnitManager.Controllers
                         );
 
                         // return token
-                        return new TokenModel()
-                        {
-                            result = true,
-                            Message="",
-                            Token=new JwtSecurityTokenHandler().WriteToken(token)
-                        };
+                        return new TokenModel(true, "Successfully", new JwtSecurityTokenHandler().WriteToken(token));
                     }
                 }
                 else
                 {
-                    return new TokenModel()
-                    {
-                        result=false,
-                        Message = "username or password is null"
-                    };
+                    return new TokenModel(false, "username or password is null"
+                        );
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new TokenModel() { result=false, Message = ex.Message };
+                return new TokenModel(false, ex.Message);
             }
         }
         [HttpPost("response")]
@@ -167,30 +155,22 @@ namespace DeliveryUnitManager.Controllers
 
 
         [HttpPost("Register")]
-        public async Task<ActionResult> Register(RegisterUser user)
+        public async Task<TokenModel> Register(RegisterUser user)
         {
             try
             {
 
                 if (_context.Users == null)
                 {
-                    return BadRequest();
+                    return new TokenModel(false, "User is null");
                 }
                 if (_context.Users.Where(u => u.Username == user.Username).Any())
                 {
-                    var result = new TokenModel()
-                    {
-                        result = false,
-                        Message ="username is exits"
-                    };
-                    return Ok(result);
+                    return new TokenModel(false, "username is exits");
+
                 }
                 if (_context.Users.Where(u => u.Email == user.Email).Any())
-                    return Ok(new TokenModel()
-                    {
-                        result = false,
-                        Message ="Email is exits"
-                    });
+                    return new TokenModel(false, "Email is exits");
                 var newUser = new Users()
                 {
                     Username = user.Username,
@@ -211,26 +191,22 @@ namespace DeliveryUnitManager.Controllers
                 _context.Users.Add(newUser);
                 await _context.SaveChangesAsync();
 
-                return Ok(new TokenModel()
-                {
-                    result=true,
-                    Message="Register successfully"
-                });
+                return new TokenModel(true, "Register successfully");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return new TokenModel(false, ex.Message);
             }
         }
 
 
         [HttpPost("Login")]
-        public async Task<ActionResult> Login(User user)
+        public async Task<TokenModel> Login(User user)
         {
             var TokenModel = GetRequest(user);
             if (TokenModel.result)
-                TokenModel.Message = "Login successfully";
-            return await Task.Run(() => Ok(TokenModel));
+                TokenModel.Message= "Login successfully";
+            return await Task.Run(() => TokenModel);
 
 
         }
