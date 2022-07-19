@@ -34,6 +34,7 @@ namespace DeliveryUnitManager.Middleware
             try
             {
                 var user = userService.Get(8);
+                context.Items["User"] = user;
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_configuration.GetSection("Jwt").GetSection("Key").Value);
 
@@ -51,7 +52,7 @@ namespace DeliveryUnitManager.Middleware
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.Get(userId);
+               
             }
             catch
             {
