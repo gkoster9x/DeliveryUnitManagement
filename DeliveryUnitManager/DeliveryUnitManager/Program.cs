@@ -1,7 +1,10 @@
-﻿using DeliveryUnitManager.Repository.Models;
+﻿using DeliveryUnitManager.Middleware;
+using DeliveryUnitManager.Reponsitory.Models.Users;
+using DeliveryUnitManager.Reponsitory.Services;
+using DeliveryUnitManager.Reponsitory.Services.Services;
+using DeliveryUnitManager.Repository.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DeliveryUnitDataContext>();
+builder.Services.AddScoped<IService<Users>, UserSevice>();
+builder.Services.AddScoped<IService<Positions>, PositionService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -34,12 +40,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(builder => builder.SetIsOriginAllowed(origin => true)
+.AllowAnyHeader()
+.AllowAnyMethod()
+.AllowCredentials()
+);
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
-app.UseAuthentication();
-
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

@@ -15,18 +15,22 @@ namespace DeliveryUnitManager.Reponsitory.Services.Services
             _context.Users.Add(entity);
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var user = _context.Users.Find(id);
             if (user != null)
                 _context.Users.Remove(user);
         }
 
-        public Users Get(int id)
+        public Users? Get(long id)
         {
-            var user = _context.Users.Find(id);
-            if (user == null) return new Users();
-            return user;
+            return  _context.Users.Find(id);
+
+        }
+        public async Task<Users?> GetAsync(long id)
+        {
+            return await _context.Users.FindAsync(id);
+            
         }
 
         public IEnumerable<Users> GetAll()
@@ -34,9 +38,19 @@ namespace DeliveryUnitManager.Reponsitory.Services.Services
             return _context.Users.ToList();
         }
 
-        public int SaveChange()
+        public async Task<IEnumerable<Users>> GetAllAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public int SaveChanges()
         {
             return _context.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
         }
 
         public void Update(Users entity)

@@ -16,7 +16,5 @@ namespace DeliveryUnitManager.Reponsitory.Models.BankingQuestionInterview
         public long QuestionID { get; set; }
         public string? Answer { get; set; }
 
-        [ForeignKey("QuestionID")]
-        public virtual QuestionInterviews QuestionInterview { get; set; }
     }
 }

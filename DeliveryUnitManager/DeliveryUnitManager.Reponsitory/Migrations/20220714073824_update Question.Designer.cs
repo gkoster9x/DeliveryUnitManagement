@@ -4,6 +4,7 @@ using DeliveryUnitManager.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliveryUnitManager.Reponsitory.Migrations
 {
     [DbContext(typeof(DeliveryUnitDataContext))]
-    partial class DeliveryUnitDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220714073824_update Question")]
+    partial class updateQuestion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,6 +62,8 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("QuestionID");
+
                     b.ToTable("Answers");
                 });
 
@@ -70,10 +74,6 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreateBy")
                         .IsRequired()
@@ -99,10 +99,6 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Technology")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UpdateBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -121,10 +117,6 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID"), 1L, 1);
-
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreateBy")
                         .IsRequired()
@@ -154,7 +146,12 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Question")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("QuestionInterviewsID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdateBy")
@@ -164,6 +161,8 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("QuestionInterviewsID");
 
                     b.ToTable("Questions");
                 });
@@ -482,6 +481,24 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("DeliveryUnitManager.Reponsitory.Models.BankingQuestionInterview.AnswerInterviews", b =>
+                {
+                    b.HasOne("DeliveryUnitManager.Reponsitory.Models.BankingQuestionInterview.QuestionInterviews", "QuestionInterview")
+                        .WithMany()
+                        .HasForeignKey("QuestionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("QuestionInterview");
+                });
+
+            modelBuilder.Entity("DeliveryUnitManager.Reponsitory.Models.BankingQuestionInterview.QuestionInterviews", b =>
+                {
+                    b.HasOne("DeliveryUnitManager.Reponsitory.Models.BankingQuestionInterview.QuestionInterviews", null)
+                        .WithMany("Interviews")
+                        .HasForeignKey("QuestionInterviewsID");
+                });
+
             modelBuilder.Entity("DeliveryUnitManager.Reponsitory.Models.Users.RolePermissions", b =>
                 {
                     b.HasOne("DeliveryUnitManager.Reponsitory.Models.Users.Permissions", "Permission")
@@ -529,6 +546,11 @@ namespace DeliveryUnitManager.Reponsitory.Migrations
                         .IsRequired();
 
                     b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("DeliveryUnitManager.Reponsitory.Models.BankingQuestionInterview.QuestionInterviews", b =>
+                {
+                    b.Navigation("Interviews");
                 });
 
             modelBuilder.Entity("DeliveryUnitManager.Reponsitory.Models.Users.Permissions", b =>

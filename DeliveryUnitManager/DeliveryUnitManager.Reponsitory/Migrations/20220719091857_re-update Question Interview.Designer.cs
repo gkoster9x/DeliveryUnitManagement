@@ -4,6 +4,7 @@ using DeliveryUnitManager.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliveryUnitManager.Reponsitory.Migrations
 {
     [DbContext(typeof(DeliveryUnitDataContext))]
-    partial class DeliveryUnitDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220719091857_re-update Question Interview")]
+    partial class reupdateQuestionInterview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

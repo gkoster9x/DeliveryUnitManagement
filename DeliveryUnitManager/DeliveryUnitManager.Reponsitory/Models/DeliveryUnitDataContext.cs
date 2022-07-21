@@ -20,6 +20,7 @@ namespace DeliveryUnitManager.Repository.Models
         #region BankingQuestionInterview
         public DbSet<QuestionInterviews> Questions { set; get; }
         public DbSet<AnswerInterviews> Answers { set; get; }
+        public DbSet<ProjectDevelop> ProjectDevelops { set; get; }
 
         #endregion
 
