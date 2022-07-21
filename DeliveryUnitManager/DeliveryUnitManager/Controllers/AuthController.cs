@@ -25,7 +25,6 @@ namespace DeliveryUnitManager.Controllers
         }
         #region test
         [HttpPost("token")]
-        [CustomAuthorize(Role ="admins")]
         public async Task<ActionResult> GetToken()
         {
             // security key
@@ -50,6 +49,7 @@ namespace DeliveryUnitManager.Controllers
         }
 
         [HttpPost("bodyPara")]
+        [CustomAuthorize(Role ="Test")]
         public ActionResult GetBody([FromHeader] string content)
         {
 

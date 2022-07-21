@@ -12,7 +12,7 @@ using DeliveryUnitManager.Models;
 
 namespace DeliveryUnitManager.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/qlda")]
     [ApiController]
     public class ProjectDevelopsController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace DeliveryUnitManager.Controllers
         }
 
         // GET: api/ProjectDevelops
-        [HttpGet]
+        [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<ProjectApi>>> GetProjectDevelops()
         {
             if (_context.ProjectDevelops == null)
@@ -59,8 +59,8 @@ namespace DeliveryUnitManager.Controllers
 
         // PUT: api/ProjectDevelops/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut]
-        public async Task<TokenModel> PutProjectDevelop(BankQuestionModel project)
+        [HttpPut("update")]
+        public async Task<TokenModel> PutProjectDevelop(ProjectManage project)
         {
             if (project.Id == null || project.Id == 0)
             {
@@ -93,8 +93,8 @@ namespace DeliveryUnitManager.Controllers
 
         // POST: api/ProjectDevelops
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<TokenModel> PostProjectDevelop(BankQuestionModel project)
+        [HttpPost("addnew")]
+        public async Task<TokenModel> PostProjectDevelop(ProjectManage project)
         {
             if (_context.ProjectDevelops == null)
             {
@@ -117,7 +117,7 @@ namespace DeliveryUnitManager.Controllers
         }
 
         // DELETE: api/ProjectDevelops/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<TokenModel> DeleteProjectDevelop(long id)
         {
             if (_context.ProjectDevelops == null)

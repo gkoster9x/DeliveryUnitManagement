@@ -11,7 +11,7 @@ namespace DeliveryUnitManager.Reponsitory.Models.ApiModels
     {
         public long Id { get; set; }
         public string Question { get; set; }
-        public string Type { get; set; }
+        public string Answer { get; set; }
         public string PlatformType { get; set; }
         public string Level { get; set; }
         public string Projects { get; set; }
@@ -20,7 +20,7 @@ namespace DeliveryUnitManager.Reponsitory.Models.ApiModels
         {
             Id=question.ID;
             Question = question.Question;
-            Type = question.Type;
+            Answer = question.Answer;
             PlatformType    = question.PlatformType;
             Level = question.Level;
             Projects = question.Projects;

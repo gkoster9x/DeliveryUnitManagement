@@ -7,9 +7,10 @@ namespace DeliveryUnitManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController : ControllerBase
+    [CustomAuthorize]
+    public class LockedController : ControllerBase
     {
-        public TestsController()
+        public LockedController()
         {
 
         }
@@ -19,12 +20,11 @@ namespace DeliveryUnitManager.Controllers
         {
             return "call api get test success";
         }
-
-        [HttpGet("getAuthorize")]
-        [CustomAuthorize(Role ="test")]
-        public string GetAuthorizeTestApi()
+        [HttpGet("unlocked")]
+        [AllowAnonymous]
+        public string getUnlocked()
         {
-            return "call api getAuthorize test success";
+            return "call api get test success";
         }
-    }  
+    }
 }

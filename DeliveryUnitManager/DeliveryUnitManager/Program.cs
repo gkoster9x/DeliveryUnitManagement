@@ -5,7 +5,6 @@ using DeliveryUnitManager.Reponsitory.Services.Services;
 using DeliveryUnitManager.Repository.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DeliveryUnitDataContext>();
 builder.Services.AddScoped<IService<Users>, UserSevice>();
+builder.Services.AddScoped<IService<Positions>, PositionService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters

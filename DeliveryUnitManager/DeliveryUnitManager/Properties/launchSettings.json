@@ -4,7 +4,7 @@
     "windowsAuthentication": true,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://192.168.86.165:5033",
+      "applicationUrl": "http://192.168.86.142:7033",
       "sslPort": 0
     }
   },
@@ -16,7 +16,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:7033;http://192.168.86.165:5033",
+      "applicationUrl": "http://192.168.86.142:7033",
       "dotnetRunMessages": true
     },
     "IIS Express": {
@@ -33,7 +33,7 @@
       "launchUrl": "https://localhost:7033/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "https://localhost:7033;http://192.168.86.165:5033"
+        "ASPNETCORE_URLS": "http://192.168.86.142:7033"
       },
       "distributionName": ""
     }
